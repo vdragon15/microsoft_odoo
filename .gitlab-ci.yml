@@ -1,0 +1,113 @@
+# image: alexedev/ubuntu-sshpass
+
+stages: 
+  - make-pot
+  - deploy-testing
+  - deploy-testing-api
+
+testing:
+   stage: deploy-testing
+   only:
+     - /^1.0.*$/
+   except:
+    changes:
+     - "*.pot"
+   tags:
+     - shell
+   retry:
+    max: 2
+    when:
+      - script_failure
+      - runner_system_failure
+   environment:
+     name: testing
+     url: '103.154.101.47'
+   variables:
+     GIT_STRATEGY: none
+   script:
+     - sshpass -e ssh -p 2282 -tt -o "StrictHostKeyChecking no" opstack@${CI_ENVIRONMENT_URL} "
+       echo '========Pull Latest Source Code========';
+       cd /odoo/besco_phuclong
+       && echo ${SSHPASS} | sudo -S git pull ssh://git@gitlab.besco.vn:144/thanh/besco_phuclong.git $CI_COMMIT_REF_NAME
+       && sudo -S service odoo-server stop
+       && sudo -S click-odoo-update -c /etc/odoo-server.conf --database=${DATABASE_TEMPLATE} --i18n-overwrite"
+   after_script: 
+     - sshpass -e ssh -p 2282 -tt -o "StrictHostKeyChecking no" opstack@${CI_ENVIRONMENT_URL} "
+        echo ${SSHPASS} | sudo -S service odoo-server start"
+        
+testing-api:
+   stage: deploy-testing-api
+   only:
+     - /^api_1.0.*$/
+   except:
+    changes:
+     - "*.pot"
+   tags:
+     - shell
+   retry:
+    max: 2
+    when:
+      - script_failure
+      - runner_system_failure
+   environment:
+     name: testing
+     url: '103.154.101.27'
+   variables:
+     GIT_STRATEGY: none
+   script:
+     - sshpass -e ssh -p 22 -tt -o "StrictHostKeyChecking no" besco@${CI_ENVIRONMENT_URL} "
+       echo '========Pull Latest Source Code========';
+       cd /odoo/besco_phuclong
+       && echo ${SSHPASS} | sudo -S git pull https://oauth2:${GITLAB_PERSONAL_TOKEN}@gitlab.besco.vn/thanh/besco_phuclong.git $CI_COMMIT_REF_NAME
+       && sudo -S service odoo-server stop
+       && sudo -S click-odoo-update -c /etc/odoo-server.conf --database=${DATABASE_API} --i18n-overwrite "
+   after_script:
+     - sshpass -e ssh -p 22 -tt -o "StrictHostKeyChecking no" besco@${CI_ENVIRONMENT_URL} "
+        echo ${SSHPASS} | sudo -S service odoo-server start"
+        
+makepot:
+   stage: make-pot
+   environment:
+     name: integration
+     url: '103.154.101.47'
+   tags:
+     - shell
+   retry:
+    max: 2
+    when:
+      - script_failure
+      - runner_system_failure     
+   only:
+     - /^1.0.*$/
+   except:
+    changes:
+     - "*.pot"
+   before_script:
+    #  - 'which sshpass || apt-get update -qq && apt-get install -y -qq sshpass'
+    # - 'which curl || apt-get update -qq && apt-get install -y -qq curl'
+   variables:
+     GIT_STRATEGY: none
+   script:
+     - sshpass -e ssh -p 2282 -tt -o "StrictHostKeyChecking no" opstack@${CI_ENVIRONMENT_URL} "
+      echo '========Create POT files========'
+      && echo ${SSHPASS} 
+      && cd /odoo/besco_phuclong
+      && sudo git config user.email vuong.nguyen@besco.vn
+      && sudo git config user.name "vuong.nguyen"
+      && sudo git checkout ${CI_COMMIT_REF_NAME}
+      && sudo git pull ssh://git@gitlab.besco.vn:144/thanh/besco_phuclong.git ${CI_COMMIT_REF_NAME}
+      && sudo click-odoo-makepot --config=/etc/odoo-server.conf --database=${DATABASE_TEMPLATE} --addons-dir=/odoo/besco_phuclong/phuclong_addons --commit
+      && sudo sh generate_po.sh /odoo/besco_phuclong/phuclong_addons
+      && sudo git push ssh://git@gitlab.besco.vn:144/thanh/besco_phuclong.git ${CI_COMMIT_REF_NAME}  -o ci.skip"
+     - 'curl -d operation=pull -H "Authorization: Token qd72afJBuWs5MegXChxj5TJ79N6rCZYwraRptGEy" http://weblate.besco.vn/api/projects/besco-phuc-long/repository/'
+  #  after_script:
+  #    - sshpass -e ssh -tt -o "StrictHostKeyChecking no" ${SSHLOGIN}@${CI_ENVIRONMENT_URL} "
+  #       echo '========Create POT files========'"
+
+  # | sudo -S apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev -y
+      # && which odoo || echo ${SSHPASS} | sudo -S pip3 install -e /odoo/odoo_enterprise
+      # && which click-odoo-contrib || echo ${SSHPASS} | sudo -S pip3 install click-odoo-contrib
+        
+        
+        
+        
