@@ -1,0 +1,590 @@
+cat /proc/cpuinfo
+check core: nproc
+cat /proc/meminfo
+check memory gb: free -g
+df -h
+-check SSD
+cat /sys/block/sda/queue/rotational
+0->SSD
+
+---change python version
+sudo update-alternatives --config python3
+
+---Check git link
+git config --get remote.origin.url
+
+---update pip3
+pip3 install --upgrade pip setuptools
+
+---update num2word
+pip3 install num2words==0.5.9
+
+Xóa Py:
+V11:
+find -name '*.py' ! -name '__init__.py' ! -name '__manifest__.py' -not -path '*/report/*' -not -path '*/wizard/*' -not -path '*/report_aeroo/*' -not -path '*/report_aeroo_ooo/*' -delete
+
+----locale
+export LC_ALL="en_US.UTF-8"
+
+aeroo v11
+https://github.com/aeroo/aeroo_docs/files/250079/install_aeroo.pdf
+
+Check Ubuntu Server Timezone
+>> cat /etc/timezone
+
+Modify Ubuntu Server Timezone
+>> nano /etc/timezone
+ modify line to Asia/Ho_Chi_Minh and save it (Ctr+X)
+or
+sudo timedatectl set-timezone Asia/Ho_Chi_Minh
+
+>> reboot
+
+Default postgres get timze from ubuntu server
+
+Then change timezone of postgres in file postgresql.conf from /etc/postgresl/9.1/main
+Fine line named "timezone" then add this string "Asia/Ho_Chi_Minh"
+
+----
+
+Dung sql:
+ALTER USER postgres SET timezone='Asia/Ho_Chi_Minh';
+
+kill -9 $(lsof -i :8069)
+npm install -g less
+
+edit css
+DELETE FROM ir_attachment WHERE url LIKE '/web/content/%';
+
+odoo-enterprise service
+update-rc.d -f odoo-server remove
+update-rc.d odoo-server defaults
+create service in: /etc/systemd/system/odoo.service
+
+----Restore DB CMD
+http://data.neatclean.vn
+us: odoo
+pass: 99887766
+
+sudo su - postgres
+createdb -T template0 -O odoo 11E_NONSON_2209
+cat /home/ubuntu/201906070300_pg_backup.sql.gz  | gunzip | psql -U odoo -d 11E_NONSON_2209
+--RESTORE FROM GZIP BACKUP FROM v10 to v9.x
+cat /home/ubuntu/201906070300_pg_backup.sql.gz  | gunzip | sed -e '/AS integer/d' | psql -U odoo -d NONSON_PRODUCTION_BACKUP_0509
+
+psql -U <username> -d <dbname> -1 -f <filename>.sql
+pg_restore -U <username> -v -d <dbname> <filename>.dump
+
+-----JP
+ssh ubuntu@103.116.105.20 -p 10520
+123!@#JPf2o2110520
+pass: B3sc0@jP2021
+
+admin: odoo@jpf
+DB: testing
+
+staging
+ssh ubuntu@103.116.105.21 -p 10521
+!@#JPf2o1910521
+
+-----JP ECOM
+ssh root@103.116.105.18
+JPf123Abc!@#
+old:
+ssh stackops@61.28.227.117 -p 234
+xf+BtRg4
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----1169/ 1269 /1369
+ssh -p 10 ubuntu@222.255.123.22
+ubuntu
+admin: @dmin123
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----69
+ssh -p 11 ubuntu@222.255.123.22
+besco2017
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----IBasic
+ssh -p 234 stackops@61.28.230.16
+B3sc0@Af2021
+admin: ibasic@dmin
+db: it@2020
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----OSSSO VIETTEL
+cd vpn
+sudo openvpn --config OSSSO.ovpn
+
+ssh ossso@125.212.211.153 -p 22
+ossso2017
+ossso@dmin
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----OSSSO TEST AMAZON
+ssh -i "Ossso2017.pem" ubuntu@ec2-34-235-73-169.compute-1.amazonaws.com
+db: ossso@dmin
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----3SACH test
+ssh ubuntu@222.255.123.22 -p 102
+besco2017
+admin: 3sachfood@123
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----3SACH server
+ssh stackops@61.28.230.175 -p 234
+d3M7&iyc
+odoo@besco
+
+production btx
+61.28.230.175 admin/***
+test 3sf
+61.28.230.175:8050 admin/1
+production 3sf
+61.28.230.175:8060 admin/1
+3sachfood@123
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Orimart server
+ssh stackops@61.28.226.139 -p 234
+oecTfk*7
+
+61.28.226.139:8069
+backup: orimart@dmin226
+path : /opt/odoo
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Orimart Test
+ssh ubuntu@222.255.123.22 -p 104
+besco2018
+admin
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----METRO-MART server
+ssh -p 234 stackops@61.28.235.130
+B3sc0@MeTro2021
+
+ssh ubuntu@222.255.123.22 -p 121
+besco@2018
+http://222.255.123.22:12169
+@dmin123
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Well
+ssh server@115.73.208.237 -p 2201
+15052018
+pass admin: Hvphong2705@
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----DHA TEST
+ssh ubuntu@103.89.84.186 -p 186
+besco2018
+besco@dmin
+Domain: dhamedic.besco.vn
+besco / besco@dha
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----DHA STAGING
+ssh besco@52.76.255.85
+besco123@
+besco@dmin
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----DHA FE
+ssh -p 50 ubuntu@222.255.123.22
+besco2017
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----GreenMart
+ssh vuong.nguyen@103.89.84.133 -p 133
+123
+Domain: 103.89.84.133:1319
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Core 10669
+ssh ubuntu@222.255.123.22 -p 106
+besco2018
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Xwatch
+ssh -p 234 stackops@erp.xwatch.vn
+pass: Xwatch@123
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----JYSK -PRO
+ssh haind@115.84.183.15
+viettelidc@123
+bk:B3sc0JySkPro@2019
+login: odoo@0109
+
+DB Server (8 cores): 
+ssh haind@115.84.183.14 
+viettelidc@123
+
+DB BACKUP
+http://data.neatclean.vn
+us: odoo
+pass: besco@2020
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----JYSK -Staging
+ssh customer@115.84.183.16
+
+abc@123
+bk:jysk@dmin
+login: odoo@0108
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----JYSK -Test
+ssh ubuntu@222.255.123.22 -p 101
+ttach@#@!
+
+admin: @dmin123
+
+-----Hotfix 12169
+ssh root@222.255.123.22 -p 121
+besco@2018
+http://222.255.123.22:12169
+@dmin123
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----bachmoc
+ssh ubuntu@103.89.85.178 -p 22
+besco2018
+
+
+++++++++ vuong.nguyen@ip_server
+123
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----demo Hong Dang
+ssh vuong.nguyen@103.89.84.145 -p 145
+vuong.nguyen@123
+hd@admin
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----staging Hong Dang
+ssh hongdang@172.16.0.247
+ip public: 171.235.27.118
+hongdang123
+---teamview
+1292423712
+hongdang123
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----12e
+ssh vuong.nguyen@103.89.84.137 -p 22
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----13e
+ssh vuong.nguyen@103.89.84.136 -p 136
+v13e@core11!@#
+v13e@core11!@#backup
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Momo
+ssh vuong.nguyen@103.89.84.137 -p 22
+user: vti-erp@besco.vn
+pass: MCQ#k0n74704h
+
+Server:
+https://business.momo.vn/
+user: besco_master/bc2020@@
+Cửa hàng: besco_pos
+
+App test:
+https://developers.momo.vn/#/docs/testing_information
+0917030000
+
+username: vti001
+pass: 12345678a*
+
+---PL
+phuclong/pl2020@@
+
+update momo_pos_config mpc set momo_store_id =  SUBSTRING ( pc.name , 3 , 2) from pos_config pc where mpc.store_id = pc.id and mpc.momo_store_id is null;
+update momo_pos_config set momo_store_name = concat('ch', momo_store_id, '-phuclong') where momo_store_name is null and momo_store_id is not null;
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Zalo
+038210511
+pass: Phuclong@123
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Urbox
+https://devapi.urbox.vn/4.0/payment/check
+app_id: 500000096
+app_secret:7db1dc4b2b0ac43b80534159b0c94326
+store_id: 169343
+code: 
+UB790398048
+UB243592373
+UB680721470
+UB838953985
+UB108433389
+UB903776279
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Non Son
+
++server:
+ssh vuong.nguyen@103.154.101.18
+bk:nonson@dmin
+pass ssl verify
+sudo pip3 install -U requests[security]
+
+
++client:
+ssh vuong.nguyen@103.154.101.20
+
+1362524413/123456
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Non Son Staging
+NEW:
+ssh opstack@118.69.81.34 -p 2200
+opstack
+pass admin:odoo@0506
+
++client
+ssh opstack@61.14.236.35
+opstack2019
+
+-SMS API
+Branch name: Notify-GSMS-VSMS
+API Key SID: SKUspHRzlIobaKs52bkDyBber8Zy0vCy6
+API Key Secret: SzBBUlVWb1pIUjZjSzU4MXZFd3NpQlBTdzhsVDl1Sw==
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Non Son Production
+window remote:
+118.69.81.34
+Besco/Besco@2019
+teamview
+1636894337/nonson
+pass admin:odoo@1211
++vpn:
+14.241.230.120
+Username: vuongnvt
+Pass: ycsqHbfurvXP
+
++odoo0:
+ssh opstack@10.200.1.10
+opstack
+
++odoo1:
+ssh opstack@10.200.1.11
+opstack
+
++odoo2:
+ssh opstack@10.200.1.12
+opstack
++odoo3:
+ssh opstack@10.200.1.13
+opstack
+domain: pos.nonson.com:7069 
+DB: NONSON_PRODUCTION
+
++DB server:
+ssh opstack@10.200.1.161
+opstack
+
+ip : 10.200.1.160
+service pgbouncer restart
+
+stand by:162
+
++POS TEMPLATE
+ssh besco@10.200.1.199
+Besco@2019
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----La Moi
+ssh vuong.nguyen@103.89.85.189
+
+Production:
+ssh lamoi@103.205.96.53
+lamoi@2019
+pass: 160488
+
+****ssh token:CWxcoxs9yczixR4yms2o
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----AZ Clound
+ssh vuong.nguyen@103.89.84.136 -p 136
+supervisorctl restart odooaz
+cd /opt/odoo_az/az_erp/ 
+azerp@core11!@#
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Phuc Long
+ssh besco@103.154.101.24
+Besco@2019
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Phuc Long Staging
+-new:
+ssh root@172.20.10.40
+n49drR#]
+
+Auto update:
+service odoo-server stop
+sudo -S click-odoo-update -c /etc/odoo-server.conf --database=PHUCLONG_STAGING_IT --i18n-overwrite
+service odoo-server start
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----Phuc Long Production
+VPN: 
+https://vpncloud.phuclong.com.vn:1443/sslvpn-plus/doaction.svp?type=login
+-install: 
+sudo ./linux_phat_client/install_linux_phat_client.sh
+-run:
+sudo ./Documents/linux_phat_client/linux_phat_client/gui/naclient.sh
+vpn-vuongnguyen
+Vuong@123
+
+sudo -S click-odoo-update -c /etc/odoo-server.conf --database=PHUCLONG_PRODUCTION --i18n-overwrite
++odoo0:
+ssh root@172.20.10.30
+n49drR#]
+
++odoo1:
+ssh root@172.20.10.20
+hW73*d#v
+
++odoo2:
+ssh root@172.20.10.22
+hW73*d#v
+
++odoo3:
+ssh root@172.20.10.24
+hW73*d#v
+
++odoo4:
+ssh root@172.20.10.26
+hW73*d#v
+
+----POSTGRES
+ssh root@172.20.10.10
+hW73*d#v
+ssh root@172.20.10.12
+hW73*d#v
+ssh root@172.20.10.14
+hW73*d#v
+
+----unsecurity mode chrome (cors)
+google-chrome  --user-data-dir=”/var/tmp/Chrome” --disable-web-security
+
+*************
+update office 18.0
+sudo apt-get install libreoffice*
+
++++++++++++++
+contrib click
+
+cd /opt/odoo/odoo-server
+apt-get install build-essential python3-dev python2.7-dev \
+    libldap2-dev libsasl2-dev slapd ldap-utils python-tox \
+    lcov valgrind
+pip3 install -e .
+pip3 install click-odoo-contrib
+
+CREATE SEQUENCE table_name_id_seq;
+ALTER TABLE report_partner_advanced_balance ALTER COLUMN id SET DEFAULT nextval('report_partner_advanced_balance_id_seq'::regclass);
+
+#Install py3o
+pip3 install py3o.template
+pip3 install py3o.formats
+
+#Libreoffice
+add-apt-repository ppa:libreoffice/ppa
+apt update
+apt install libreoffice
+
+apt-get update
+apt-get upgrade -y
+libreoffice --version
+
+---update libreoffice
+sudo add-apt-repository ppa:libreoffice/ppa
+sudo apt-get update
+sudo apt-get dist-upgrade
+ 
+update ir_sequence_his set company_analytic_account_id = (select id from account_analytic_account where analytic_type = '2' limit 1);
+
+pg_dump -U odoo VIETMAP_Production_0111 -F p -f VIETMAP_Production_0111.sql
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----FNB
+ssh vuong.nguyen@103.205.96.51 -p 2283
+
+------------------------------------------------------------------------------------------------------------------------------------
+-----ISALA
+ssh opstack@103.154.101.44 -p 2287
+opstack@2020
+
+Staging
+ssh opstack@103.205.96.51 -p 2288
+opstack@2021
+
+---- wkhtmltopdf
+wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
+sudo apt install ./wkhtmltox_0.12.5-1.bionic_amd64.deb
+
+report.url=http://127.0.0.1:8069=http://127.0.0.1:8069
+
+
+update res_partner set name = replace(name, '', '') where name like '%%';
+
+CREATE INDEX queue_job_state_index ON public.queue_job USING btree (state);
+
+-----Check postgres query
+sudo -u postgres pg_activity -U postgres
+
+
+mã màu:
+#150517 (#18191A fb) - đen đậm 
+#242526 - nhạt 1
+#4B4C4E bill
+xanh PL: #155435
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
